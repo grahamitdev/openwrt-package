@@ -1054,7 +1054,7 @@ int zha_leave_req(struct ubus_context *ctx, struct ubus_object *obj,
 
 	return UBUS_STATUS_INVALID_ARGUMENT;
 }
-
+//通知用户：获取网关下面所有zigbee节点的状态,可自己修改该函数，把节点信息读出来
 Zstatus_t zha_list_backinfo(deviceInfo_t *device_info, uint16_t num)
 {
 	uint16_t i, index, deviceState_index, temp_uint16;

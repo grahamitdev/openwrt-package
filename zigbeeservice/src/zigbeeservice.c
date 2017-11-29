@@ -745,7 +745,7 @@ int local_list_new(cJSON **r_result)
 	*r_result = result;
 	return CMD_SUCCESS;
 }
-
+//通知用户：当zigbee网关下的节点状态发生改变时，SDK会进入该回掉并打印状态改变的那个zigbee节点最新状态，在终端打印
 Zstatus_t deviceStateChange(deviceInfo_t *deviceInfo, uint16_t clusterId)
 {
 	cJSON *r_result = NULL;
@@ -767,6 +767,7 @@ Zstatus_t deviceStateChange(deviceInfo_t *deviceInfo, uint16_t clusterId)
 	}
 	return ZSUCCESS;
 }
+//有设备向网关注销
 int device_unregister(unsigned char ieee_addr[8])
 {
 	char ieee[17] = {0};
@@ -782,7 +783,7 @@ void *test(void *arg)
 {
 	return;
 }
-
+//通知用户：sdk和网关模块初始化状态已经完成，当SDK进入这个回调时zigbee网关部分初始化完成，可对节点进行操作
 Zstatus_t zigbeeModuleStatus(ZigbeeModuleStatus_t status)
 {
 	unsigned char tmp_ieee[8] = {0};
@@ -791,7 +792,7 @@ Zstatus_t zigbeeModuleStatus(ZigbeeModuleStatus_t status)
 	memset(tmp_ieee, 0xff, 8);
 	device_setPermitJoin(tmp_ieee, 0);
 }
-
+//组的状态发生改变
 int zigbeeGroupStateChange(uint8_t ieee_Addr[8], uint8_t epId, uint8_t cmdId, uint8_t status, uint8_t grpCnt, uint16_t *grpList, uint8_t capacity, char *grpName)
 {
 	if (cmdId == 0x00) //group add rsp
@@ -823,11 +824,11 @@ int zigbeeGroupStateChange(uint8_t ieee_Addr[8], uint8_t epId, uint8_t cmdId, ui
 	{
 	}
 }
-
+//场景改变会进入该会掉
 int zigbeeSceneStateChange(uint8_t ieee_Addr[8], uint8_t epId, uint8_t cmdId, uint8_t status, uint8_t grpCnt, uint16_t *grpList, uint8_t capacity, char *grpName)
 {
 }
-
+//如果设备从在线变成离线，或者从离线变成在线，会进入回掉
 int device_online_offline_cb(unsigned char ieee_addr[8], char online_or_not)
 {
 	uint8 ieeeaddr_string[18] = {0};
@@ -840,7 +841,7 @@ int device_online_offline_cb(unsigned char ieee_addr[8], char online_or_not)
 
 	return 0;
 }
-
+//有设备发送命令数据，会进入该回掉
 int pfn_zigbee_cmdIncoming(unsigned char ieee_addr[8], uint8_t epId, uint16_t clusterId, uint8_t cmdId, void *pCmd)
 {
 	uint8 *p_data = NULL;
@@ -923,7 +924,7 @@ int pfn_zigbee_cmdIncoming(unsigned char ieee_addr[8], uint8_t epId, uint16_t cl
 		break;
 	}
 }
-
+//设备上报心跳信息，会进入该回掉
 int user_zigbee_reportIn(device_info_t *device, uint8_t epId, uint16_t clusterId, deviceReportCmd_t *deviceReport)
 {
 
@@ -942,20 +943,21 @@ int user_zigbee_reportIn(device_info_t *device, uint8_t epId, uint16_t clusterId
 }
 
 user_zigbeeCBs_t zigbeeCBs = {
-	zha_list_backinfo, //user_all_device_state_cb_t pfn_all_deviceState;
-	deviceStateChange,
-	zigbeeModuleStatus,
-	device_online_offline_cb,
-	NULL,
-	device_unregister,
-	zigbeeGroupStateChange,
-	zigbeeSceneStateChange,
-	NULL,					// user_zigbee_announce_cb_t pfn_zigbee_announce;
-	pfn_zigbee_cmdIncoming, //user_zigbee_cmdIncoming_cb_t pfn_zigbee_cmdIncoming;
-	NULL,					//user_zigbee_attrChange_cb_t pfn_zigbee_attrChange;
-	NULL,					//user_zigbee_cmdChange_cb_t pfn_zigbee_cmdChange;
-	user_zigbee_reportIn,
-	NULL};
+	zha_list_backinfo, //通知用户：获取网关下面所有zigbee节点的状态,可自己修改该函数，把节点信息读出来
+	deviceStateChange,//通知用户：当zigbee网关下的节点状态发生改变时，SDK会进入该回掉并打印状态改变的那个zigbee节点最新状态，在终端打印
+	zigbeeModuleStatus,//通知用户：sdk和网关模块初始化状态已经完成，当SDK进入这个回调时zigbee网关部分初始化完成，可对节点进行操作
+	device_online_offline_cb,//如果设备从在线变成离线，或者从离线变成在线，会进入回掉
+	NULL,//有设备向网关注册
+	device_unregister,//有设备向网关注销
+	zigbeeGroupStateChange,//组的状态发生改变
+	zigbeeSceneStateChange,//场景改变会进入该会掉
+	NULL,					
+	pfn_zigbee_cmdIncoming,//有设备发送命令数据，会进入该回掉
+	NULL,//有设备的属性发生改变					
+	NULL,//有设备的cmd发生改变					
+	user_zigbee_reportIn,//设备上报心跳信息，会进入该回掉
+	NULL//网关发送结果
+	};
 
 void write_device_in_white_list(void)
 {

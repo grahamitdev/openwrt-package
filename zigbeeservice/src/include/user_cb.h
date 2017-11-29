@@ -76,33 +76,33 @@ typedef int (*user_sendResult_cb_t)(uint8_t *send_result);
 typedef struct {
 
 	user_allState_cb_t pfn_allState;
-
+  //通知用户：获取网关下面所有zigbee节点的状态,可自己修改该函数，把节点信息读出来
 	user_stateChange_cb_t pfn_stateChange;
-
+  //通知用户：当zigbee网关下的节点状态发生改变时，SDK会进入该回掉并打印状态改变的那个zigbee节点最新状态，在终端打印
   user_zigbeeModuleStatus_cb_t pfn_zigbeeModuleStatus;
-
+  //通知用户：sdk和网关模块初始化状态已经完成，当SDK进入这个回调时zigbee网关部分初始化完成，可对节点进行操作
   user_zigbee_update_online_status_cb_t pfn_zigbeeUpdateOnlineStatue;
-
+  //如果设备从在线变成离线，或者从离线变成在线，会进入回掉
   user_zigbee_register_device_cb_t pfn_zigbeeRegisterDevice;
-
+  //有设备向网关注册
   user_zigbee_unregister_device_cb_t pfn_zigbeeUnRegisterDevice;
-
+  //有设备向网关注销
   user_zigbee_groupStateChange_cb_t pfn_zigbeeGroupStateChange;
-
+  //组的状态发生改变
   user_zigbee_sceneStateChange_cb_t pfn_zigbeeSceneStateChange;
-
+  //场景改变会进入该会掉
   user_zigbee_announce_cb_t pfn_zigbee_announce;
-
+  
   user_zigbee_cmdIncoming_cb_t pfn_zigbee_cmdIncoming;
-
+  //有设备发送命令数据，会进入该回掉
   user_zigbee_attrChange_cb_t pfn_zigbee_attrChange;
-
+  //有设备的属性发生改变
   user_zigbee_cmdChange_cb_t pfn_zigbee_cmdChange;
-
+  //有设备的cmd发生改变
   user_zigbee_reportIn_cb_t pfn_zigbee_reportIn;
-
+  //设备上报心跳信息，会进入该回掉
   user_sendResult_cb_t pfn_sendResultIn;
-
+  //网关发送结果
 } user_zigbeeCBs_t;
 
 Zstatus_t user_registerZigbeeCBs(user_zigbeeCBs_t *callbacks);

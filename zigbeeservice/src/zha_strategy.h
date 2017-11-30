@@ -9,19 +9,18 @@
 #ifndef _ZHA_STRATEGY_H_
 #define _ZHA_STRATEGY_H_
 
+
 #include <stdio.h>
 #include <libubus.h>
 #include <libubox/utils.h>
 #include "user_types.h"
 
-enum
-{
+enum {
 	ZHA_PERMITJOIN_TIME_ATTR_SET,
 	__ZHA_NWKMGR_ATTR_MAX,
 };
 
-enum
-{
+enum {
 	ZHA_GATEWAY_ATTR_ID,
 	ZHA_GATEWAY_ATTR_ENDPOINT_ID,
 	ZHA_GATEWAY_ATTR_PROFILE_ID,
@@ -42,7 +41,7 @@ enum
 	ZHA_GATEWAY_ATTR_INFAREDCONTROL,
 	ZHA_GATEWAY_ATTR_WHITELIST,
 	ZHA_GATEWAY_ATTR_CHANNEL,
-	ZHA_GATEWAY_ATTR_CTRL,
+	ZHA_GATEWAY_ATTR_CTRL,	
 	ZHA_GATEWAY_ATTR_FAN,
 	ZHA_GATEWAY_ATTR_PERCENTAGE,
 	ZHA_HVAC_THERMOSTAT_MODE,
@@ -59,8 +58,7 @@ enum
 	__ZHA_GATEWAY_ATTR_MAX,
 };
 
-enum
-{
+enum {
 	GROUP_ATTR_ID,
 	GROUP_ATTR_NAME,
 	GROUP_ATTR_VISIBLE,
@@ -79,8 +77,7 @@ enum
 	__GROUP_ATTR_MAX,
 };
 
-enum
-{
+enum {
 	SCENE_ATTR_ID,
 	SCENE_ATTR_GROUP_ID,
 	SCENE_ATTR_ICON_ID,
@@ -89,8 +86,8 @@ enum
 	__SCENE_ATTR_MAX,
 };
 
-enum
-{
+
+enum {
 	RULE_ATTR_ID,
 	RULE_ATTR_NAME,
 	RULE_ATTR_STATE,
@@ -103,8 +100,7 @@ enum
 	__RULE_ATTR_MAX,
 };
 
-enum
-{
+enum {
 	RULE_ATTR_COND_INDEX,
 	RULE_ATTR_COND_REPEAT_TIMES,
 	RULE_ATTR_COND_TYPE,
@@ -117,8 +113,8 @@ enum
 	__RULE_ATTR_COND_MAX,
 };
 
-enum
-{
+
+enum {
 	RULE_ATTR_ACT_INDEX,
 	RULE_ATTR_ACT_DELAY_TIMEOUT,
 	RULE_ATTR_ACT_TARGET_TYPE,
@@ -131,8 +127,7 @@ enum
 	__RULE_ATTR_ACT_MAX,
 };
 
-enum
-{
+enum {
 	GW_ATTR_SERVER_IP,
 	GW_ATTR_SERVER_PORT,
 	GW_ATTR_SAFEKEY,
@@ -140,39 +135,36 @@ enum
 	__GW_ATTR_MAX,
 };
 
-enum
-{
+enum {
 	ZHA_REAL_TIME,
 	__ZHA_REAL_TIME_MAX,
 };
 
-enum
-{
+enum {
 	ZHA_DEBUG,
 	__ZHA_DEBUG_MAX,
 };
 
-enum
-{
+enum {
 	CLOUD_ADDR,
 	__CLOUD_ADDR_MAX,
 };
 
-enum
-{
+enum {
 	SHA256_TIME,
 	SHA256_ID,
 	SHA256_MAC,
 	__SHA256_MAX,
 };
 
-pthread_mutex_t zha_list_mutex;
+
+pthread_mutex_t     zha_list_mutex;
 
 extern uint8_t ubus_is_busy;
 
-extern int zha_list(struct ubus_context *ctx, struct ubus_object *obj,
-					struct ubus_request_data *req, const char *method,
-					struct blob_attr *msg);
+extern int	zha_list(struct ubus_context *ctx, struct ubus_object *obj, 
+		struct ubus_request_data *req, const char *method, 
+		struct blob_attr *msg);
 
 extern const struct blobmsg_policy zha_nwkmgr_attrs[__ZHA_NWKMGR_ATTR_MAX];
 
@@ -180,188 +172,199 @@ extern const struct blobmsg_policy zha_gateway_attrs[__ZHA_GATEWAY_ATTR_MAX];
 
 extern Zstatus_t zha_list_backinfo(deviceInfo_t *device_info, uint16_t num);
 
-extern int zha_scan(struct ubus_context *ctx, struct ubus_object *obj,
-					struct ubus_request_data *req, const char *method,
-					struct blob_attr *msg);
+extern int	zha_scan(struct ubus_context *ctx, struct ubus_object *obj, 
+		struct ubus_request_data *req, const char *method, 
+		struct blob_attr *msg);
 
-extern int zha_cloud_report(struct ubus_context *ctx, struct ubus_object *obj,
-							struct ubus_request_data *req, const char *method,
-							struct blob_attr *msg);
+extern int	zha_cloud_report(struct ubus_context *ctx, struct ubus_object *obj, 
+		struct ubus_request_data *req, const char *method, 
+		struct blob_attr *msg);
 
-extern int zha_coordResetFactNew(struct ubus_context *ctx, struct ubus_object *obj,
-								 struct ubus_request_data *req, const char *method,
-								 struct blob_attr *msg);
 
-extern int zha_permitjoin(struct ubus_context *ctx, struct ubus_object *obj,
-						  struct ubus_request_data *req, const char *method,
-						  struct blob_attr *msg);
+extern int	zha_coordResetFactNew(struct ubus_context *ctx, struct ubus_object *obj, 
+		struct ubus_request_data *req, const char *method, 
+		struct blob_attr *msg);
 
-extern int zha_get_coord_info(struct ubus_context *ctx, struct ubus_object *obj,
-							  struct ubus_request_data *req, const char *method,
-							  struct blob_attr *msg);
 
-extern int zha_leave_req(struct ubus_context *ctx, struct ubus_object *obj,
-						 struct ubus_request_data *req, const char *method,
-						 struct blob_attr *msg);
+extern int	zha_permitjoin(struct ubus_context *ctx, struct ubus_object *obj, 
+		struct ubus_request_data *req, const char *method, 
+		struct blob_attr *msg);
 
-extern int zha_set(struct ubus_context *ctx, struct ubus_object *obj,
-				   struct ubus_request_data *req, const char *method,
-				   struct blob_attr *msg);
+extern int	zha_get_coord_info(struct ubus_context *ctx, struct ubus_object *obj, 
+		struct ubus_request_data *req, const char *method, 
+		struct blob_attr *msg);
 
-int zha_get_node_info(struct ubus_context *ctx, struct ubus_object *obj,
-					  struct ubus_request_data *req, const char *method,
-					  struct blob_attr *msg);
 
-extern int zha_write_whitelist(struct ubus_context *ctx, struct ubus_object *obj,
-							   struct ubus_request_data *req, const char *method,
-							   struct blob_attr *msg);
+extern int	zha_leave_req(struct ubus_context *ctx, struct ubus_object *obj, 
+		struct ubus_request_data *req, const char *method, 
+		struct blob_attr *msg);
 
-extern int zha_delete_whitelist(struct ubus_context *ctx, struct ubus_object *obj,
-								struct ubus_request_data *req, const char *method,
-								struct blob_attr *msg);
 
-extern int zha_get_whitelist(struct ubus_context *ctx, struct ubus_object *obj,
-							 struct ubus_request_data *req, const char *method,
-							 struct blob_attr *msg);
+extern int	zha_set(struct ubus_context *ctx, struct ubus_object *obj, 
+		struct ubus_request_data *req, const char *method, 
+		struct blob_attr *msg);
 
-extern int zha_enable_whitelist(struct ubus_context *ctx, struct ubus_object *obj,
-								struct ubus_request_data *req, const char *method,
-								struct blob_attr *msg);
+int	zha_get_node_info(struct ubus_context *ctx, struct ubus_object *obj, 
+		struct ubus_request_data *req, const char *method, 
+		struct blob_attr *msg);
 
-extern int zha_group_create(struct ubus_context *ctx, struct ubus_object *obj,
-							struct ubus_request_data *req, const char *method,
-							struct blob_attr *msg);
 
-extern int zha_group_set(struct ubus_context *ctx, struct ubus_object *obj,
-						 struct ubus_request_data *req, const char *method,
-						 struct blob_attr *msg);
+extern int	zha_write_whitelist(struct ubus_context *ctx, struct ubus_object *obj, 
+		struct ubus_request_data *req, const char *method, 
+		struct blob_attr *msg);
 
-extern int zha_group_change(struct ubus_context *ctx, struct ubus_object *obj,
-							struct ubus_request_data *req, const char *method,
-							struct blob_attr *msg);
+extern int	zha_delete_whitelist(struct ubus_context *ctx, struct ubus_object *obj, 
+		struct ubus_request_data *req, const char *method, 
+		struct blob_attr *msg);
+
+extern int	zha_get_whitelist(struct ubus_context *ctx, struct ubus_object *obj, 
+		struct ubus_request_data *req, const char *method, 
+		struct blob_attr *msg);
+
+extern int	zha_enable_whitelist(struct ubus_context *ctx, struct ubus_object *obj, 
+		struct ubus_request_data *req, const char *method, 
+		struct blob_attr *msg);
+
+extern int zha_group_create(struct ubus_context *ctx, struct ubus_object *obj, 
+			struct ubus_request_data *req, const char *method, 
+			struct blob_attr *msg);
+
+extern int zha_group_set(struct ubus_context *ctx, struct ubus_object *obj, 
+		struct ubus_request_data *req, const char *method, 
+		struct blob_attr *msg);
+
+extern int zha_group_change(struct ubus_context *ctx, struct ubus_object *obj, 
+		struct ubus_request_data *req, const char *method, 
+		struct blob_attr *msg);
 
 extern int zha_group_list(struct ubus_context *ctx, struct ubus_object *obj,
-						  struct ubus_request_data *req, const char *method,
-						  struct blob_attr *msg);
+		struct ubus_request_data *req, const char *method,
+		struct blob_attr *msg);
 
-extern int zha_group_delete(struct ubus_context *ctx, struct ubus_object *obj,
-							struct ubus_request_data *req, const char *method,
-							struct blob_attr *msg);
+extern int zha_group_delete(struct ubus_context *ctx, struct ubus_object *obj, 
+			struct ubus_request_data *req, const char *method, 
+			struct blob_attr *msg);
+
 
 /* scene */
 extern int zha_scene_create(struct ubus_context *ctx, struct ubus_object *obj,
-							struct ubus_request_data *req, const char *method,
-							struct blob_attr *msg);
+			struct ubus_request_data *req, const char *method,
+			struct blob_attr *msg);
+
 
 extern int zha_scene_list(struct ubus_context *ctx, struct ubus_object *obj,
-						  struct ubus_request_data *req, const char *method,
-						  struct blob_attr *msg);
+			struct ubus_request_data *req, const char *method,
+			struct blob_attr *msg);
 
 extern int zha_scene_set(struct ubus_context *ctx, struct ubus_object *obj,
-						 struct ubus_request_data *req, const char *method,
-						 struct blob_attr *msg);
+  		struct ubus_request_data *req, const char *method,
+  		struct blob_attr *msg);
+
 
 extern int zha_scene_store(struct ubus_context *ctx, struct ubus_object *obj,
-						   struct ubus_request_data *req, const char *method,
-						   struct blob_attr *msg);
+			struct ubus_request_data *req, const char *method,
+			struct blob_attr *msg);
+
 
 extern int zha_scene_recall(struct ubus_context *ctx, struct ubus_object *obj,
-							struct ubus_request_data *req, const char *method,
-							struct blob_attr *msg);
+				struct ubus_request_data *req, const char *method,
+				struct blob_attr *msg);
 
-extern int zha_scene_delete(struct ubus_context *ctx, struct ubus_object *obj,
-							struct ubus_request_data *req, const char *method,
-							struct blob_attr *msg);
+extern int zha_scene_delete(struct ubus_context *ctx, struct ubus_object *obj, 
+			struct ubus_request_data *req, const char *method, 
+			struct blob_attr *msg);
+
 
 //rule
 extern int zha_rule_create(struct ubus_context *ctx, struct ubus_object *obj,
-						   struct ubus_request_data *req, const char *method,
-						   struct blob_attr *msg);
+		struct ubus_request_data *req, const char *method,
+		struct blob_attr *msg);
 
 extern int zha_rule_change(struct ubus_context *ctx, struct ubus_object *obj,
-						   struct ubus_request_data *req, const char *method,
-						   struct blob_attr *msg);
+		struct ubus_request_data *req, const char *method,
+		struct blob_attr *msg);
 
 int zha_rule_enable(struct ubus_context *ctx, struct ubus_object *obj,
-					struct ubus_request_data *req, const char *method,
-					struct blob_attr *msg);
+		struct ubus_request_data *req, const char *method,
+		struct blob_attr *msg);
 
 int zha_rule_get_info(struct ubus_context *ctx, struct ubus_object *obj,
-					  struct ubus_request_data *req, const char *method,
-					  struct blob_attr *msg);
+		struct ubus_request_data *req, const char *method,
+		struct blob_attr *msg);
+
 
 extern int zha_rule_list(struct ubus_context *ctx, struct ubus_object *obj,
-						 struct ubus_request_data *req, const char *method,
-						 struct blob_attr *msg);
+		struct ubus_request_data *req, const char *method,
+		struct blob_attr *msg);
 
 extern int zha_rule_delete(struct ubus_context *ctx, struct ubus_object *obj,
-						   struct ubus_request_data *req, const char *method,
-						   struct blob_attr *msg);
+		struct ubus_request_data *req, const char *method,
+		struct blob_attr *msg);
 
-extern int zha_coordChangeChannel(struct ubus_context *ctx, struct ubus_object *obj,
-								  struct ubus_request_data *req, const char *method,
-								  struct blob_attr *msg);
+extern int	zha_coordChangeChannel(struct ubus_context *ctx, struct ubus_object *obj, 
+		struct ubus_request_data *req, const char *method, 
+		struct blob_attr *msg);
 
-extern int zha_clean_whitelist(struct ubus_context *ctx, struct ubus_object *obj,
-							   struct ubus_request_data *req, const char *method,
-							   struct blob_attr *msg);
+extern int	zha_clean_whitelist(struct ubus_context *ctx, struct ubus_object *obj, 
+		struct ubus_request_data *req, const char *method, 
+		struct blob_attr *msg);
 
-extern int test1(struct ubus_context *ctx, struct ubus_object *obj,
-				 struct ubus_request_data *req, const char *method,
-				 struct blob_attr *msg);
-extern int zha_disable_whitelist(struct ubus_context *ctx, struct ubus_object *obj,
-								 struct ubus_request_data *req, const char *method,
-								 struct blob_attr *msg);
+extern int	test1(struct ubus_context *ctx, struct ubus_object *obj, 
+		struct ubus_request_data *req, const char *method, 
+		struct blob_attr *msg);
+extern int	zha_disable_whitelist(struct ubus_context *ctx, struct ubus_object *obj, 
+		struct ubus_request_data *req, const char *method, 
+		struct blob_attr *msg);
 
-extern int zha_time_set(struct ubus_context *ctx, struct ubus_object *obj,
-						struct ubus_request_data *req, const char *method,
-						struct blob_attr *msg);
+extern int	zha_time_set(struct ubus_context *ctx, struct ubus_object *obj, 
+		struct ubus_request_data *req, const char *method, 
+		struct blob_attr *msg);
 
 int zha_set_coord_heart_interval(unsigned short interval);
 
-int zha_coord_heart_Interval(struct ubus_context *ctx, struct ubus_object *obj,
-							 struct ubus_request_data *req, const char *method,
-							 struct blob_attr *msg);
+int	zha_coord_heart_Interval(struct ubus_context *ctx, struct ubus_object *obj, 
+		struct ubus_request_data *req, const char *method, 
+		struct blob_attr *msg);
 
 int zha_set_min_heart_interval(unsigned short interval);
 
-int zha_min_heart_interval(struct ubus_context *ctx, struct ubus_object *obj,
-						   struct ubus_request_data *req, const char *method,
-						   struct blob_attr *msg);
+int	zha_min_heart_interval(struct ubus_context *ctx, struct ubus_object *obj, 
+		struct ubus_request_data *req, const char *method, 
+		struct blob_attr *msg);
 
 int zha_set_max_heart_interval(unsigned short interval);
 
-int zha_max_heart_interval(struct ubus_context *ctx, struct ubus_object *obj,
-						   struct ubus_request_data *req, const char *method,
-						   struct blob_attr *msg);
+int	zha_max_heart_interval(struct ubus_context *ctx, struct ubus_object *obj, 
+		struct ubus_request_data *req, const char *method, 
+		struct blob_attr *msg);
 
 int zha_get_heart(struct ubus_context *ctx, struct ubus_object *obj,
-				  struct ubus_request_data *req, const char *method,
-				  struct blob_attr *msg);
+		struct ubus_request_data *req, const char *method,
+		struct blob_attr *msg);		
 
 int zha_get_ver(struct ubus_context *ctx, struct ubus_object *obj,
-				struct ubus_request_data *req, const char *method,
-				struct blob_attr *msg);
+		struct ubus_request_data *req, const char *method,
+		struct blob_attr *msg);
 
 int zha_get_cloud_state(struct ubus_context *ctx, struct ubus_object *obj,
-						struct ubus_request_data *req, const char *method,
-						struct blob_attr *msg);
+		struct ubus_request_data *req, const char *method,
+		struct blob_attr *msg);
 
 int zha_debug(struct ubus_context *ctx, struct ubus_object *obj,
-			  struct ubus_request_data *req, const char *method,
-			  struct blob_attr *msg);
+		struct ubus_request_data *req, const char *method,
+		struct blob_attr *msg);		
 
 int zha_cloud_addr_changed(struct ubus_context *ctx, struct ubus_object *obj,
-						   struct ubus_request_data *req, const char *method,
-						   struct blob_attr *msg);
+		struct ubus_request_data *req, const char *method,
+		struct blob_attr *msg);
 
 int zha_get_cloud_addr(struct ubus_context *ctx, struct ubus_object *obj,
-					   struct ubus_request_data *req, const char *method,
-					   struct blob_attr *msg);
+		struct ubus_request_data *req, const char *method,
+		struct blob_attr *msg);
 
 int zha_sha_256(struct ubus_context *ctx, struct ubus_object *obj,
-				struct ubus_request_data *req, const char *method,
-				struct blob_attr *msg);
+		struct ubus_request_data *req, const char *method,
+		struct blob_attr *msg);
 
 void disable_whitelist_timer_callback(struct uloop_timeout *t);
 

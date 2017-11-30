@@ -47,7 +47,7 @@ void * mqtt_thread(void *p)
 	else
 		debug(DEBUG_ERROR,"mosquitto_lib_init failure");
 	
-	mosq = mosquitto_new("helloworld", true, NULL);;
+	mosq = mosquitto_new("helloworld", true, NULL);
 	if(mosq)
 	{
 		debug(DEBUG_ERROR,"mosquitto_new success");

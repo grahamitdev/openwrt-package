@@ -1,0 +1,6 @@
+---- handle_signal Matches (4 in 2 files) ----
+
+Mqtt.c (e:\workspace\share\zigbeeservice\src):void handle_signal(int s)
+Mqtt.c (e:\workspace\share\zigbeeservice\src):	signal(SIGINT, handle_signal);
+Mqtt.c (e:\workspace\share\zigbeeservice\src):	signal(SIGTERM, handle_signal);
+Mqtt.h (e:\workspace\share\zigbeeservice\src):void handle_signal(int s);

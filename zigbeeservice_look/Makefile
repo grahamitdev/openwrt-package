@@ -1,17 +1,11 @@
-#
-# Copyright (C) 2006-2012 OpenWrt.org
-#
-# This is free software, licensed under the GNU General Public License v2.
-# See /LICENSE for more information.
-#
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=zigbeeservice
 PKG_RELEASE:=1
-
 PKG_LICENSE:=GPLv2 GPLv2+
 PKG_LICENSE_FILES:=
+PKG_BUILD_DIR :=$(BUILD_DIR)/$(PKG_NAME)
 
 include $(INCLUDE_DIR)/package.mk
 
